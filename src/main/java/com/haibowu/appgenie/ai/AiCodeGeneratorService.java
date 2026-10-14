@@ -1,13 +1,22 @@
 package com.haibowu.appgenie.ai;
 
+import com.haibowu.appgenie.ai.model.HtmlCodeResult;
+import com.haibowu.appgenie.ai.model.MultiWebFileCodeResult;
 import dev.langchain4j.service.SystemMessage;
+import reactor.core.publisher.Flux;
 
 public interface AiCodeGeneratorService {
 
     @SystemMessage(fromResource = "prompt/codegen-html-system-prompt.txt")
-    String generateHtmlCode(String userMessage);
+    HtmlCodeResult generateHtmlCode(String userMessage);
 
     @SystemMessage(fromResource = "prompt/codegen-multi-web-file-system-prompt.txt")
-    String generateMultiWebFileCode(String userMessage);
+    MultiWebFileCodeResult generateMultiWebFileCode(String userMessage);
+
+    @SystemMessage(fromResource = "prompt/codegen-html-system-prompt.txt")
+    Flux<String> generateHtmlCodeStream(String userMessage);
+
+    @SystemMessage(fromResource = "prompt/codegen-multi-web-file-system-prompt.txt")
+    Flux<String> generateMultiWebFileCodeStream(String userMessage);
 
 }
