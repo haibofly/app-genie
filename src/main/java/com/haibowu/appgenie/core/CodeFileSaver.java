@@ -10,6 +10,12 @@ import com.haibowu.appgenie.ai.model.enums.CodeGenTypeEnum;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * 代码文件保存器（已废弃）
+ *
+ * @deprecated 请改用 {@link com.haibowu.appgenie.core.saver.CodeFileSaverExecutor}（模板方法 + 执行器模式）。
+ */
+@Deprecated
 public class CodeFileSaver {
 
     // 文件保存根目录
@@ -28,7 +34,7 @@ public class CodeFileSaver {
      * 保存 MultiFileCodeResult
      */
     public static File saveMultiFileCodeResult(MultiWebFileCodeResult result) {
-        String baseDirPath = buildUniqueDir(CodeGenTypeEnum.MULTI_FILE.getValue());
+        String baseDirPath = buildUniqueDir(CodeGenTypeEnum.MULTI_WEB_FILE.getValue());
         writeToFile(baseDirPath, "index.html", result.getHtmlCode());
         writeToFile(baseDirPath, "style.css", result.getCssCode());
         writeToFile(baseDirPath, "script.js", result.getJsCode());

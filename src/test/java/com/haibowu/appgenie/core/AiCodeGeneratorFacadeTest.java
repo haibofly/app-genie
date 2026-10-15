@@ -120,7 +120,7 @@ class AiCodeGeneratorFacadeTest {
     @DisplayName("多文件模式：非流式生成，应保存 index.html / style.css / script.js 三个文件")
     void generateAndSaveMultiFileCode() {
         generateWithRetry("多文件模式（非流式）",
-                () -> aiCodeGeneratorFacade.generateAndSaveCode(MULTI_FILE_PROMPT, CodeGenTypeEnum.MULTI_FILE),
+                () -> aiCodeGeneratorFacade.generateAndSaveCode(MULTI_FILE_PROMPT, CodeGenTypeEnum.MULTI_WEB_FILE),
                 AiCodeGeneratorFacadeTest::assertMultiFileSavedDir);
     }
 
@@ -214,10 +214,10 @@ class AiCodeGeneratorFacadeTest {
      */
     private GeneratedStream generateMultiFileStream() {
         Set<String> dirsBefore = snapshotOutputDirs();
-        Flux<String> codeStream = aiCodeGeneratorFacade.generateAndSaveCodeStream(MULTI_FILE_PROMPT, CodeGenTypeEnum.MULTI_FILE);
+        Flux<String> codeStream = aiCodeGeneratorFacade.generateAndSaveCodeStream(MULTI_FILE_PROMPT, CodeGenTypeEnum.MULTI_WEB_FILE);
         assertNotNull(codeStream, "流式结果不应为空");
         String streamContent = collectStream(codeStream);
-        return new GeneratedStream(streamContent, awaitNewOutputDir(dirsBefore, CodeGenTypeEnum.MULTI_FILE));
+        return new GeneratedStream(streamContent, awaitNewOutputDir(dirsBefore, CodeGenTypeEnum.MULTI_WEB_FILE));
     }
 
     private static String collectStream(Flux<String> codeStream) {
@@ -264,7 +264,7 @@ class AiCodeGeneratorFacadeTest {
     }
 
     private static void assertMultiFileSavedDir(File savedDir) {
-        Path dirPath = assertSavedDir(savedDir, CodeGenTypeEnum.MULTI_FILE);
+        Path dirPath = assertSavedDir(savedDir, CodeGenTypeEnum.MULTI_WEB_FILE);
         String html = readFile(dirPath.resolve("index.html"));
         String css = readFile(dirPath.resolve("style.css"));
         String js = readFile(dirPath.resolve("script.js"));

@@ -95,12 +95,12 @@ class AiCodeGeneratorFacadeSaveTest {
         AiCodeGeneratorFacade facade = facadeWith(service);
         Set<String> dirsBefore = snapshotOutputDirs();
 
-        List<String> streamed = facade.generateAndSaveCodeStream("生成一个个人主页", CodeGenTypeEnum.MULTI_FILE)
+        List<String> streamed = facade.generateAndSaveCodeStream("生成一个个人主页", CodeGenTypeEnum.MULTI_WEB_FILE)
                 .collectList().block();
 
         assertNotNull(streamed, "流式结果不应为空");
         assertFalse(streamed.isEmpty(), "流式结果不应为空");
-        Path savedDir = awaitNewOutputDir(dirsBefore, CodeGenTypeEnum.MULTI_FILE);
+        Path savedDir = awaitNewOutputDir(dirsBefore, CodeGenTypeEnum.MULTI_WEB_FILE);
         assertEquals(html, readFile(savedDir.resolve("index.html")));
         assertEquals(css, readFile(savedDir.resolve("style.css")));
         assertEquals(js, readFile(savedDir.resolve("script.js")));

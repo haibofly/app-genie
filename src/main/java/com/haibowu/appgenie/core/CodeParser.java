@@ -7,10 +7,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 代码解析器
+ * 代码解析器（已废弃）
  * 提供静态方法解析不同类型的代码内容
  *
+ * @deprecated 请改用 {@link com.haibowu.appgenie.core.parser.CodeParserExecutor}（策略 + 执行器模式）。
  */
+@Deprecated
 public class CodeParser {
 
     /**
